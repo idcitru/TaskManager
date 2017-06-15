@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../public/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
+
+    <style>
+        body {
+            background: url(../pic/enter.jpg) no-repeat;
+            -moz-background-size: 110%; /* Firefox 3.6+ */
+            -webkit-background-size: 110%; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: 110%; /* Opera 9.6+ */
+            background-size: 110%; /* Современные браузеры */
+        }
+    </style>
+
+    <title>БИК</title>
+</head>
+<body>
+
+<div id="wrap">
+    <div id="menu">
+        <div class="form-signin">
+            <div class="container">
+                <div class="masthead">
+                    <h3 class="text-muted"></h3>
+                    <nav>
+                        <ul class="nav nav-pills pull-right">
+                            <li></li>
+                            <li></li>
+                            <li role="presentation" class="active"><a href=" <?php echo BEZ_HOST; ?>?mode=auth">Войти</a></li>
+                            <li role="presentation" class="active"><a href="<?php echo BEZ_HOST; ?>?mode=reg">Регистрация</a>
+                            </li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div style="clear:both;"></div>
+                <div id="content">
+                    <?php echo $content; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
