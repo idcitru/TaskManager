@@ -33,6 +33,44 @@
     </div>
 
     <br>
+    <div class="row">
+        <div class="col-xs-2 center-block">
+            <label class="control-label" for="inputSuccess1">Обновить  выполнение</label>
+        </div>
+        <div class="col-xs-7">
+            <div class="progress">
+                <?php if ($task_a[11] <= 50) : ?>
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width:<?=$task_a[11]?>%">
+                        <span><?=$task_a[11]?>%</span>
+                    </div>
+                <?php elseif ($task_a[11] <= 80) :  ?>
+                    <div class="progress-bar progress-bar-warning progress-bar-striped" style="width:<?=$task_a[11]?>%">
+                        <span><?=$task_a[11]?>%</span>
+                    </div>
+                <?php   else :  ?>
+                    <div class="progress-bar progress-bar-success progress-bar-striped" style="width:<?=$task_a[11]?>%">
+                        <span><?=$task_a[11]?>%</span>
+                    </div>
+                <?php  endif; ?>
+            </div>
+        </div>
+        <form action="index.php">
+            <div class="col-xs-1">
+                <div class="input-group">
+                <input type="text"  style="height: 21px" class="form-control" name="percent" id="inputSuccess1" aria-describedby="helpBlock2">
+                    </div>
+            </div>
+            <div class="col-xs-2">
+                <div class="form-group">
+                    <input type="hidden" name="route" value="update_percent"/>
+                    <input type="hidden" name="id_task" value="<?= $task_a[0] ?>"/>
+                    <button type="submit" class="btn btn-block btn-xs">Обновить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br>
 
     <div class="row">
         <div class="col-xs-6">
@@ -65,25 +103,26 @@
             <input type="text" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2"
                    value="<?= $task_a[6] ?>" disabled>
         </div>
-
-        <div class="col-xs-2">
-            <form action="index.php">
-                <label class="control-label" for="inputSuccess1">Отредактировать</label>
-                <div class="form-group">
-                    <input type="hidden" name="route" value="edit_a_task"/>
-                    <input type="hidden" name="id_task" value="<?= $task_a[0] ?>"/>
-                    <button type="submit" class="btn btn-primary">Отредактировать!</button>
-                </div>
-            </form>
-            <a name="table"></a>
-        </div>
+        <?php if ($_SESSION['head_of_department'] == true) : ?>
+            <div class="col-xs-2">
+                <form action="index.php">
+                    <label class="control-label" for="inputSuccess1">Отредактировать</label>
+                    <div class="form-group">
+                        <input type="hidden" name="route" value="edit_a_task"/>
+                        <input type="hidden" name="id_task" value="<?= $task_a[0] ?>"/>
+                        <button type="submit" class="btn btn-primary">Отредактировать!</button>
+                    </div>
+                </form>
+                <a name="table"></a>
+            </div>
+        <?php endif; ?>
         <div class="col-xs-2">
             <form action="index.php">
                 <label class="control-label" for="inputSuccess1">Завершить задачу</label>
                 <div class="form-group">
                     <input type="hidden" name="route" value="complete_a_task"/>
                     <input type="hidden" name="id_task" value="<?= $task_a[0] ?>"/>
-                    <button type="submit" class="btn btn-primary">Выполнена!</button>
+                    <button type="submit" class="btn btn-primary btn-block">Выполнена!</button>
                 </div>
             </form>
             <a name="table"></a>

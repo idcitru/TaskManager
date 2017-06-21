@@ -15,13 +15,7 @@
                         <div align="center">Название</div>
                     </th>
                     <th>
-                        <div align="center">Описание</div>
-                    </th>
-                    <th>
-                        <div align="center">Приоритет</div>
-                    </th>
-                    <th>
-                        <div align="center">Труд.</div>
+                        <div align="center">Постановщик</div>
                     </th>
                     <th>
                         <div align="center">Крайняя дата</div>
@@ -36,10 +30,13 @@
             <tr>
                 <td>
                     <div align="center">
+                        <?= $assign_task[0]; ?>
                         <?php if ($assign_task[9] == 3) : ?>
                             <img src="../pic/flag.png" width="20" height="20">
                         <?php endif; ?>
-                        <?= $assign_task[0]; ?>
+                        <?php if ($assign_task[9] == 1) : ?>
+                            <img src="../pic/imp.png" width="20" height="20">
+                        <?php endif; ?>
                     </div>
                 </td>
                 <td>
@@ -51,13 +48,7 @@
                     </div>
                 </td>
                 <td>
-                    <div align="left"> <?= $assign_task[2]; ?> </div>
-                </td>
-                <td>
-                    <div align="center"> <?= $assign_task[7]; ?> </div>
-                </td>
-                <td>
-                    <div align="center"> <?= $assign_task[6]; ?> </div>
+                    <div align="center"> <?= $assign_task[3] . " " . $assign_task[4]; ?> </div>
                 </td>
                 <td>
                     <div align="center"> <?= date_from_mysql($assign_task[8]); ?> </div>

@@ -33,8 +33,18 @@ if (isset($_SESSION['user_id'])) {
     $instructed_tasks_count = count($instructed_tasks);
 
     //Считает кол-во просроченных
-    $overdue_tasks = show_overdue_tasks($user_id);
-    $overdue_tasks_count = count($overdue_tasks);
+    if ($user_id ==  $head_of_department) { // Если пользователь является начальнико отдела
+
+        $overdue_tasks = show_overdue_department_tasks($department_id);
+        $overdue_tasks_count = count($overdue_tasks);
+    }
+
+    else { // Выводим только те задачи в которых сотрудник является исполнителем
+
+        $overdue_tasks = show_overdue_tasks($user_id);
+        $overdue_tasks_count = count($overdue_tasks);
+    }
+
 
     //Считает кол-во задач которые необходимо назначить
     $assign_tasks = show_all_assign_tasks($department_id);
@@ -48,12 +58,21 @@ if (isset($_SESSION['user_id'])) {
         //Подключаем обработчик с формой регистрации
         case 'default':
             require '../scripts/show_general_page/c_show_general_page.php';
-            require '../scripts/show_general_page/t_show_general_page.php';
+            require '../scripts/show_general_page/t_show_general_page_t.php';
+            break;
+
+        case 'show_department_task':
+            require '../scripts/show_department_tasks/c_show_department_tasks.php';
+            require '../scripts/show_general_page/t_show_general_page_t.php';
             break;
 
         case 'exit':
             session_destroy();
             header("Location: ../");
+            break;
+
+        case 'update_percent':
+            require '../scripts/update_persent/c_update_percent.php';
             break;
 
         case 'assign_all_tasks':
@@ -90,6 +109,11 @@ if (isset($_SESSION['user_id'])) {
         case 'show_complete_a_task':
             require '../scripts/show_a_complete_task/c_show_a_complete_task.php';
             require '../scripts/show_a_complete_task/t_show_a_complete_task.php';
+            break;
+
+        case 'show_project_tasks':
+            require '../scripts/show_project_tasks/c_show_project_tasks.php';
+            require '../scripts/show_project_tasks/t_show_project_tasks.php';
             break;
 
         case 'edit_a_task':

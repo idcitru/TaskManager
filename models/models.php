@@ -32,7 +32,7 @@ function get_tasks_imp_head_of_department($department_id)
 {
 
     $mysqli = connect_to_base();
-    $sql = "SELECT id_task, name_task , performers.surname, performers.name, working_hours, date_of_dedline,
+    $sql = "SELECT id_task, name_task , performers.surname, performers.name, percent, date_of_dedline,
             status_id, id_priority, number_project
             FROM tasks 
             left join priorities on id_priority = priority_id
@@ -49,7 +49,7 @@ function get_tasks_unimp_head_of_department($department_id)
 {
 
     $mysqli = connect_to_base();
-    $sql = "SELECT id_task, name_task, performers.surname, performers.name, working_hours, date_of_dedline,
+    $sql = "SELECT id_task, name_task, performers.surname, performers.name, percent, date_of_dedline,
             status_id, priority_id, number_project
             FROM tasks 
             left join performers on id_performer = performer_id 
@@ -80,7 +80,7 @@ function get_tasks_imp_id($id_performer)
 {
 
     $mysqli = connect_to_base();
-    $sql = "SELECT id_task, name_task , performers.surname, performers.name, working_hours, date_of_dedline,
+    $sql = "SELECT id_task, name_task , performers.surname, performers.name, percent, date_of_dedline,
             status_id, priority_id, number_project
             FROM tasks 
             left join priorities on id_priority = priority_id 
@@ -97,7 +97,7 @@ function get_tasks_unimp_id($id_performer)
 {
 
     $mysqli = connect_to_base();
-    $sql = "SELECT id_task, name_task, performers.surname, performers.name, working_hours, date_of_dedline,
+    $sql = "SELECT id_task, name_task, performers.surname, performers.name, percent, date_of_dedline,
             status_id, priority_id, number_project
             FROM tasks 
             left join performers on id_performer = performer_id 
@@ -131,7 +131,8 @@ function show_a_task($id_task)
 
     $mysqli = connect_to_base();
     $sql = "SELECT id_task, name_task, description_task, performers.surname, performers.name,
-            name_project,  working_hours, `name_priority`, name_status, date_of_completion,  date_of_dedline FROM tasks
+            name_project,  working_hours, `name_priority`, name_status, date_of_completion,  date_of_dedline, percent
+            FROM tasks
             left join priorities on id_priority = priority_id 
             left join performers on id_performer = performer_id 
             left join status on id_status = status_id
@@ -146,9 +147,8 @@ function show_instructed_tasks($user_id)
 
     $mysqli = connect_to_base();
     $sql = "SELECT id_task, name_task, description_task, performers.surname, performers.name,
-            number_project,  working_hours, `name_priority`, date_of_completion, priority_id, date_of_dedline
+            number_project,  working_hours, `percent`, date_of_completion, priority_id, date_of_dedline
             FROM tasks
-            left join priorities on id_priority = priority_id 
             left join performers on id_performer = performer_id 
             left join status on id_status = status_id
             left join projects on id_project = project_id
@@ -166,7 +166,7 @@ function show_all_assign_tasks($department_id )
     $sql = "SELECT id_task, name_task, description_task, performers.surname, performers.name,
             number_project,  working_hours, `name_priority`, date_of_completion, priority_id FROM tasks
             left join priorities on id_priority = priority_id 
-            left join performers on id_performer = performer_id 
+            left join performers on id_performer = manager_task_id 
             left join status on id_status = status_id
             left join projects on id_project = project_id
             where  performer_id = 0 and tasks.department_id = '$department_id' ";
@@ -183,19 +183,18 @@ function assign_a_task($id_task)
     $mysqli = connect_to_base();
 
 
-    $new_task_name = $_GET["name_task"];
-    $new_task_priority = $_GET["priority_id"];
+
+
     $new_task_description = $_GET["description_task"];
     $new_task_performer_id = $_GET["performer_id"];
     $new_task_working_hours = $_GET["working_hours"];
     $new_task_date_of_deadline = $_GET["date_of_deadline"];
 
 
-    $sql = "update `tasks` set name_task = '$new_task_name', 
-            description_task = '$new_task_description ',
+    $sql = "update `tasks` 
+            set description_task = '$new_task_description ',
             performer_id = '$new_task_performer_id', 
             working_hours =  '$new_task_working_hours',
-            priority_id =   '$new_task_priority', 
             date_of_dedline = '$new_task_date_of_deadline'
             where `id_task` = $id_task";
     $mysqli->query($sql);
@@ -210,19 +209,37 @@ function show_overdue_tasks($user_id)
 
     $mysqli = connect_to_base();
     $today = date("Y-m-d");
-    $sql = "SELECT id_task, name_task, description_task, performers.surname, performers.name,
+    $sql = "SELECT id_task, name_task, percent, performers.surname, performers.name,
             number_project,  working_hours, `name_priority`, date_of_dedline, priority_id FROM tasks
             left join priorities on id_priority = priority_id 
             left join performers on id_performer = performer_id 
             left join status on id_status = status_id
             left join projects on id_project = project_id
-            where performer_id = $user_id and status_id = 2 and date_of_dedline < '$today' ";
+            where performer_id = $user_id and status_id = 2 and performer_id != 0 and date_of_dedline < '$today' ";
     $result = $mysqli->query($sql);
     return $result->fetch_all();
 
 }
 
-function get_all_tasks_complete()
+
+function show_overdue_department_tasks($department_id)
+{
+
+    $mysqli = connect_to_base();
+    $today = date("Y-m-d");
+    $sql = "SELECT id_task, name_task, percent, performers.surname, performers.name,
+            number_project,  working_hours, `name_priority`, date_of_dedline, priority_id FROM tasks
+            left join priorities on id_priority = priority_id 
+            left join performers on id_performer = performer_id 
+            left join status on id_status = status_id
+            left join projects on id_project = project_id
+            where tasks.department_id = $department_id and performer_id != 0 and status_id = 2 and date_of_dedline < '$today' ";
+    $result = $mysqli->query($sql);
+    return $result->fetch_all();
+
+}
+
+function get_tasks_complete_user($user_id)
 {
 
 
@@ -233,7 +250,23 @@ function get_all_tasks_complete()
             left join performers on id_performer = performer_id 
             left join status on id_status = status_id
             left join projects on id_project = project_id
-            where status_id = 1";
+            where status_id = 1 and tasks.performer_id = $user_id";
+    $result = $mysqli->query($sql);
+    return $result->fetch_all();
+
+}
+
+function get_tasks_complete_department($department_id)
+{
+
+
+    $mysqli = connect_to_base();
+    $sql = "SELECT id_task, name_task, description_task, performers.surname, performers.name,
+            number_project,  working_hours, date_of_completion, date_of_dedline, date_of_complete, priority_id FROM tasks
+            left join performers on id_performer = performer_id 
+            left join status on id_status = status_id
+            left join projects on id_project = project_id
+            where status_id = 1 and tasks.department_id = $department_id";
     $result = $mysqli->query($sql);
     return $result->fetch_all();
 
@@ -276,11 +309,13 @@ function add_new_task()
     $new_task_date_of_completion = $_GET["date_of_completion"];
     $new_task_date_of_deadline = NULL;
     $new_task_date_of_complete = NULL;
+    $new_task_percent = 0;
 
     $sql = "INSERT INTO `tasks` VALUES ('$new_task_id', '$new_task_name', '$new_task_description ', '$new_task_performer_id', 
                                         '$new_task_manager_task_id ', '$new_task_project_id', '$new_task_working_hours',
                                         '$new_task_priority', '$new_task_status_id', '$new_task_department_id',
-                                        '$new_task_date_of_completion', '$new_task_date_of_deadline','$new_task_date_of_complete')";
+                                        '$new_task_date_of_completion', '$new_task_date_of_deadline','$new_task_date_of_complete',
+                                        '$new_task_percent')";
     $mysqli->query($sql);
 
 
@@ -293,29 +328,45 @@ function edit_a_task($id_task)
     $mysqli = connect_to_base();
 
 
-    $new_task_name = $_GET["name_task"];
-    $new_task_description = $_GET["description_task"];
-    $new_task_performer_id = $_GET["performer_id"];
-    $new_task_manager_task_id = NULL;
-    $new_task_project_id = $_GET["project_id"];
-    $new_task_working_hours = $_GET["working_hours"];
-    $new_task_priority = $_GET["priority_id"];
-    $new_task_date_of_completion = $_GET["date_of_completion"];
-    $new_task_date_of_complete = NULL;;
 
-    $sql = "update `tasks` set name_task = '$new_task_name', 
+    $new_task_description = $_GET["description_task"];
+
+
+
+    $new_task_working_hours = $_GET["working_hours"];
+
+    $new_task_date_of_deadline = $_GET["date_of_deadline"];
+
+
+    $sql = "update `tasks` 
+            set
             description_task = '$new_task_description ',
-            performer_id = '$new_task_performer_id',
-            manager_task_id = '$new_task_manager_task_id ', 
-            project_id = '$new_task_project_id',
             working_hours =  '$new_task_working_hours',
-            priority_id =   '$new_task_priority', 
-            date_of_completion = '$new_task_date_of_completion'
+            date_of_dedline = '$new_task_date_of_deadline'
             where `id_task` = $id_task";
     $mysqli->query($sql);
 
 
 }
+
+
+function update_persent($id_task, $new_persent)
+{
+
+
+    $mysqli = connect_to_base();
+
+
+    $sql = "update `tasks` 
+            set 
+            percent = '$new_persent'
+            where `id_task` = $id_task";
+    $mysqli->query($sql);
+
+
+}
+
+
 
 function get_tasks_some_performer($id_performer)
 {
@@ -402,9 +453,18 @@ function date_from_mysql($date)
     if ($date == date("Y-m-d")) return "сегодня";
     else
 
-        return $date = "$day $month $year";  # Собираем пазл из переменных
+        return $date = "$day $month";  # Собираем пазл из переменных
 
 }
+
+
+
+function str_first_ten($string, $count) {
+
+    return mb_substr($string, 0, $count, 'UTF-8') . ".";
+
+}
+
 
 
 /*

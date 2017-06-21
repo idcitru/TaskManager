@@ -15,14 +15,18 @@
                 </div>
                 <div class="col-xs-9">
                     <label class="control-label" for="inputSuccess1">Название задачи</label>
-                    <input type="text" disabled name="name_task" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2"
+                    <input type="text" name="name_task" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2"
                            value="<?= $task_a[1] ?>">
                 </div>
 
                 <div class="col-xs-2">
                     <label class="control-label" for="inputSuccess1">Приоритет заявки</label>
-                    <input type="text" disabled name="name_task" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2"
-                           value="<?= $task_a[7] ?>">
+                    <select class="form-control" name="priority_id">
+                        <option value="NULL" selected="selected">Выберите приоритет</option>
+                        <?php foreach ($priorities as $priority) : ?>
+                            <option value="<?= $priority[0]; ?>"><?= $priority[1] ?></option>
+                        <?php endforeach ?>
+                    </select>
                 </div>
             </div>
 
@@ -38,7 +42,7 @@
             <br>
 
             <div class="row">
-                <div class="col-xs-3">
+                <div class="col-xs-6">
                     <label class="control-label" for="inputSuccess1">Исполнитель</label>
                     <select class="form-control" name="performer_id">
                         <option value="NULL" selected="selected">Выберите исполнителя</option>
@@ -47,30 +51,46 @@
                         <?php endforeach ?>
                     </select>
                 </div>
-                <div class="col-xs-3">
-                    <label class="control-label" for="inputSuccess1">Крайний срок</label>
-                    <input type="date" disabled name="date_of_completion" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2"
-                           value="<?= $task_a[9] ?>">
-                </div>
-                <div class="col-xs-3">
-                    <label class="control-label" for="inputSuccess1">Плановый срок</label>
-                    <input type="date"  name="date_of_deadline" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2">
-                </div>
-                <div class="col-xs-3">
-                    <label class="control-label" for="inputSuccess1">Трудозотраты</label>
-                    <input type="text" name="working_hours" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2">
+                <div class="col-xs-6">
+                    <label class="control-label" for="inputSuccess1">Постановщик</label>
+                    <input type="text" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2" value=""
+                           disabled>
                 </div>
             </div>
 
             <br>
 
 
+            <div class="row">
+                <div class="col-xs-3">
+                    <label class="control-label" for="inputSuccess1">Название проекта</label>
+                    <select class="form-control" name="project_id">
+                        <option value="NULL" selected="selected">Выберите проект</option>
+                        <?php foreach ($projects as $project) : ?>
+                            <option value="<?= $project[0]; ?>"> <?= $project[1] ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="col-xs-3">
+                    <label class="control-label" for="inputSuccess1">Крайний срок</label>
+                    <input type="date" name="date_of_deadline" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2"
+                           value="<?= $task_a[9] ?>">
+                </div>
+                <div class="col-xs-3">
+                    <label class="control-label" for="inputSuccess1">Трудозотраты</label>
+                    <input type="text" name="working_hours" class="form-control" id="inputSuccess1" aria-describedby="helpBlock2"
+                           value="<?= $task_a[6] ?>">
+                </div>
+
+
+            </div>
+
         <?php endforeach ?>
         <br>
         <div class="row">
             <div class="col-xs-3">
-                <input type="hidden" name="route" value="assign_a_task"/>
-                <button type="submit" class="btn btn-primary">Назначить</button>
+                <input type="hidden" name="route" value="edit_a_task"/>
+                <button type="submit" class="btn btn-primary">Изменить</button>
             </div>
         </div>
     </form>
@@ -82,10 +102,15 @@
         {
             valid = true;
 
-
-            if ( document.contact_form.date_of_deadline.value == "" )
+            if ( document.contact_form.priority_id.value == "NULL" )
             {
-                alert ( "Пожалуйста заполните поле 'Плановый  срок'." );
+                alert ( "Пожалуйста заполните поле 'Приоритет заявки'." );
+                valid = false;
+            }
+
+            if ( document.contact_form.date_of_completion.value == "" )
+            {
+                alert ( "Пожалуйста заполните поле 'Крайняя дата'." );
                 valid = false;
             }
 
@@ -107,6 +132,11 @@
                 valid = false;
             }
 
+            if ( document.contact_form.name_task.value == "" )
+            {
+                alert ( "Пожалуйста заполните поле 'Название задачи'." );
+                valid = false;
+            }
 
             return valid;
         }

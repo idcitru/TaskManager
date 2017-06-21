@@ -1,6 +1,28 @@
 <?php require("../templates/header.php") ?>
 
     <div class="row">
+
+    <form action="index.php">
+        <div class="col-xs-3">
+            <select class="form-control" name="project_id">
+                <option value="1" selected="selected">Выберите проект</option>
+                <?php foreach ($projects as $project) : ?>
+                    <option value="<?= $project[0]; ?>"> <?= $project[2] . " " . $project[1] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+        <div class="col-xs-1">
+            <div class="form-group">
+                <input type="hidden" name="route" value="!"/>
+                <button type="submit" class="btn btn-primary btn-block">ОК</button>
+            </div>
+        </div>
+        </div>
+    </form>
+
+    <br><br>
+
+    <div class="row">
         <div class="col-md-12">
             <table class="table table-hover">
                 <thead>

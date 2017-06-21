@@ -1,9 +1,37 @@
 <?php require("../templates/header.php") ?>
 
+
     <div class="row">
+
+    <form action="index.php">
+        <div class="col-xs-3">
+            <select class="form-control" name="project_id">
+                <option value="1" selected="selected">Выберите проект</option>
+                <?php foreach ($projects as $project) : ?>
+                    <option value="<?= $project[0]; ?>"> <?= $project[2] . " " . $project[1] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+        <div class="col-xs-3">
+            <select class="form-control" name="performer_id">
+                <option value="NULL" selected="selected">Выберите исполнителя</option>
+                <?php foreach ($performers as $performer) : ?>
+                    <option value="<?= $performer[0]; ?>"> <?= $performer[1] . " " . $performer[2] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+        <div class="col-xs-1">
+            <div class="form-group">
+                <input type="hidden" name="route" value="!"/>
+                <button type="submit" class="btn btn-primary btn-block">ОК</button>
+            </div>
+        </div>
+        </div>
+    </form>
+
         <div class="col-md-12">
             <table class="table table-hover">
-                <col width="20" valign="top">
+                <col width="120" valign="top">
                 <col width="250" valign="top">
                 <col width="750" valign="top">
                 <col width="250" valign="top">
@@ -23,13 +51,7 @@
                         <div align="center">Название</div>
                     </th>
                     <th>
-                        <div align="center">Описание</div>
-                    </th>
-                    <th>
                         <div align="center">Исполнитель</div>
-                    </th>
-                    <th>
-                        <div align="center">Приоритет</div>
                     </th>
                     <th>
                         <div align="center">Труд.</div>
@@ -58,6 +80,9 @@
                         <?php if ($task_complete[10] == 3) : ?>
                             <img src="../pic/flag.png" width="20" height="20">
                         <?php endif; ?>
+                        <?php if ($task_complete[10] == 1) : ?>
+                            <img src="../pic/imp.png" width="20" height="20">
+                        <?php endif; ?>
                     </div>
                 </td>
                 <td>
@@ -69,16 +94,13 @@
                     </div>
                 </td>
                 <td>
-                    <div align="left"> <?= $task_complete[2]; ?> </div>
-                </td>
-                <td>
                     <div align="center"> <?= $task_complete[3] . " " . $task_complete[4]; ?> </div>
                 </td>
                 <td>
-                    <div align="center"> <?= $task_complete[7]; ?> </div>
+                    <div align="center"> <?= $task_complete[6]; ?> </div>
                 </td>
                 <td>
-                    <div align="center"> <?= $task_complete[6]; ?> </div>
+                    <div align="center"> <?= date_from_mysql($task_complete[7]); ?> </div>
                 </td>
                 <td>
                     <div align="center"> <?= date_from_mysql($task_complete[8]); ?> </div>
@@ -87,24 +109,19 @@
                     <div align="center"> <?= date_from_mysql($task_complete[9]); ?> </div>
                 </td>
                 <td>
-                    <div align="center"> <?= date_from_mysql($task_complete[10]); ?> </div>
+                    <div align="center">
+                        <?php if ($task_complete[9] > $task_complete[8]) : ?>
+                            <img src="../pic/sad.png"
+                                 width="35" height="35">
+                        <?php else: ?>
+                            <img src="../pic/happy.png" width="35"
+                                 height="35">
+                        <?php endif ?>
+                    </div>
                 </td>
-            <td>
-                <div align="center">
-                    <?php if ($task_complete[10] > $task_complete[9]) : ?>
-                        <img src="../pic/sad.png"
-                             width="35" height="35">
-                    <?php else: ?>
-                        <img src="../pic/happy.png" width="35"
-                             height="35">
-                    <?php endif ?>
-
-                </div>
-            </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
-
         </table>
     </div>
     </div>

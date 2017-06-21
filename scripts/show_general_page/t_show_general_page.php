@@ -31,10 +31,10 @@
                         <div align="center">Исполнитель</div>
                     </th>
                     <th>
-                        <div align="center">Труд.</div>
+                        <div align="center">%</div>
                     </th>
                     <th>
-                        <div align="center">Плановая дата</div>
+                        <div align="center">Срок</div>
                     </th>
                 </tr>
                 </thead>
@@ -54,15 +54,21 @@
                                 <div align="center"> <?= $task[8] ?> </div>
                             </td>
                             <td class="danger">
-                                <div align="left"><a
-                                            href="../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
+                                <div align="left"><a data-toggle="tooltip" data-placement="bottom"
+                                                     title="<?= $task[1]; ?>"
+                                                     href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= str_first_ten($task[1]); ?>  </a>
                                 </div>
                             </td>
                             <td class="danger">
-                                <div align="left"> <?= $task[2] . " " . $task[3]; ?> </div>
+                                <div align="left"> <?= $task[2] . " " . str_first_b($task[3]); ?> </div>
                             </td>
                             <td class="danger">
-                                <div align="center"> <?= $task[4]; ?> </div>
+                                <div class="progress" style="margin-bottom: 0px">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: <?= $task[4] ?>%;"> <?= $task[4] ?>%
+                                    </div>
+                                </div>
                             </td>
                             <td class="danger">
                                 <div align="center"> <?= date_from_mysql($task[5]); ?> </div>
@@ -93,10 +99,10 @@
                         <div align="center">Исполнитель</div>
                     </th>
                     <th>
-                        <div align="center">Труд.</div>
+                        <div align="center">%</div>
                     </th>
                     <th>
-                        <div align="center">Плановая дата</div>
+                        <div align="center">Срок</div>
                     </th>
                 </tr>
                 </thead>
@@ -114,18 +120,24 @@
                                 </div>
                             </td>
                             <td class="warning">
-                                <div align="center"> <?= $task[8]  ?> </div>
+                                <div align="center"> <?= $task[8] ?> </div>
                             </td>
                             <td class="warning">
-                                <div align="left"><a
-                                            href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
+                                <div align="left"><a data-toggle="tooltip" data-placement="bottom"
+                                                     title="<?= $task[1]; ?>"
+                                                     href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= str_first_ten($task[1]); ?>  </a>
                                 </div>
                             </td>
                             <td class="warning">
-                                <div align="left"> <?= $task[2] . " " . $task[3]; ?> </div>
+                                <div align="left"> <?= $task[2] . " " . str_first_b($task[3]); ?> </div>
                             </td>
                             <td class="warning">
-                                <div align="center"> <?= $task[4]; ?> </div>
+                                <div class="progress" style="margin-bottom: 0px">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: <?= $task[4] ?>%;"> <?= $task[4] ?>%
+                                    </div>
+                                </div>
                             </td>
                             <td class="warning">
                                 <div align="center"> <?= date_from_mysql($task[5]); ?> </div>
@@ -157,10 +169,10 @@
                         <div align="center">Исполнитель</div>
                     </th>
                     <th>
-                        <div align="center">Труд.</div>
+                        <div align="center">%</div>
                     </th>
                     <th>
-                        <div align="center">Плановая дата</div>
+                        <div align="center">Срок</div>
                     </th>
                 </tr>
                 </thead>
@@ -176,15 +188,21 @@
                                 <div align="center"> <?= $task[8] ?> </div>
                             </td>
                             <td>
-                                <div align="left"><a
-                                            href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
+                                <div align="left"><a data-toggle="tooltip" data-placement="bottom"
+                                                     title="<?= $task[1]; ?>"
+                                                     href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= str_first_ten($task[1]); ?>  </a>
                                 </div>
                             </td>
                             <td>
-                                <div align="left"> <?= $task[2] . " " . $task[3]; ?> </div>
+                                <div align="left"> <?= $task[2] . " " . str_first_b($task[3]); ?> </div>
                             </td>
                             <td>
-                                <div align="center"> <?= $task[4]; ?> </div>
+                                <div class="progress" style="margin-bottom: 0px">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: <?= $task[4] ?>%;"> <?= $task[4] ?>%
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <div align="center"> <?= date_from_mysql($task[5]); ?> </div>
@@ -215,10 +233,10 @@
                         <div align="center">Исполнитель</div>
                     </th>
                     <th>
-                        <div align="center">Труд.</div>
+                        <div align="center">%</div>
                     </th>
                     <th>
-                        <div align="center">Плановая дата</div>
+                        <div align="center">Срок</div>
                     </th>
                 </tr>
                 </thead>
@@ -230,19 +248,25 @@
                             <td>
                                 <div align="center"> <?= $task[0]; ?> </div>
                             </td>
-                            <td >
+                            <td>
                                 <div align="center"> <?= $task[8] ?> </div>
                             </td>
                             <td>
-                                <div align="left"><a
-                                            href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
+                                <div align="left"><a data-toggle="tooltip" data-placement="bottom"
+                                                     title="<?= $task[1]; ?>"
+                                                     href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= str_first_ten($task[1]); ?>  </a>
                                 </div>
                             </td>
                             <td>
-                                <div align="left"> <?= $task[2] . " " . $task[3]; ?> </div>
+                                <div align="left"> <?= $task[2] . " " . str_first_b($task[3]); ?> </div>
                             </td>
                             <td>
-                                <div align="center"> <?= $task[4]; ?> </div>
+                                <div class="progress" style="margin-bottom: 0px">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: <?= $task[4] ?>%;"> <?= $task[4] ?>%
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <div align="center"> <?= date_from_mysql($task[5]); ?> </div>
@@ -281,73 +305,74 @@
             </thead>
 
             <tbody>
-            <tr>
-                <td>
-                    <?php foreach ($tasks_alls as $task): ?>
-                        <?php if ($task[5] <= (date("Y-m-d"))) : ?>
-                            <div align="center">
-                                <?php if ($task[7] == 3) : ?>
-                                    <?php $current_hours =+ $task[4]; ?>
-                                    <img src="../pic/flag.png" width="20" height="20">
-                                <?php endif; ?>
-                                <a href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[8] . " " . $task[1]; ?>  </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </td>
+            <td>
+                <table border="2">
+                    <tr>
+                        <?php foreach ($tasks_alls as $task): ?>
+                            <?php if ($task[5] <= (date("Y-m-d"))) : ?>
+                                <div align="center">
+                                    <?php if ($task[7] == 3) : ?>
+                                        <?php $current_hours =+ $task[4]; ?>
+                                        <td>Ячейка 1.1</td>
+                                        <img src="../pic/flag.png" width="20" height="20">
+                                    <?php endif; ?>
 
-                <td>
-                    <?php foreach ($tasks_alls as $task): ?>
-                        <?php if ((date("Y-m-d", strtotime("+1 day"))) == $task[5]) : ?>
-                            <div align="center">
-                                <?php if ($task[7] == 3) : ?>
-                                    <img src="../pic/flag.png" width="20" height="20">
-                                <?php endif; ?>
-                                <a href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </td>
-                <td>
-                    <?php foreach ($tasks_alls as $task): ?>
-                        <?php if ($task[5] == (date("Y-m-d", strtotime("+2 day")))) : ?>
-                            <div align="center">
-                                <?php if ($task[7] == 3) : ?>
-                                    <img src="../pic/flag.png" width="20" height="20">
-                                <?php endif; ?>
-                                <a href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </td>
-                <td>
-                    <?php foreach ($tasks_alls as $task): ?>
-                        <?php if ((date("Y-m-d", strtotime("+3 day"))) == $task[5]) : ?>
-                            <div align="center">
-                                <?php if ($task[7] == 3) : ?>
-                                    <img src="../pic/flag.png" width="20" height="20">
-                                <?php endif; ?>
-                                <a href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </td>
-                <td>
-                    <?php foreach ($tasks_alls as $task): ?>
-                        <?php if ($task[5] === (date("Y-m-d", strtotime("+4 day")))) : ?>
-                            <div align="center">
-                                <?php if ($task[7] == 3) : ?>
-                                    <img src="../pic/flag.png" width="20" height="20">
-                                <?php endif; ?>
-                                <a href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[1]; ?>  </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </td>
-            </tr>
+                                    <td> <a href="../../public/index.php?route=show_a_task&id_task=<?= $task[0] ?>"> <?= $task[8] . " " . $task[1]; ?>  </a></td>
+                                    <td>Ячейка 1.3</td>
+
+                                </div>
+
+
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table border="2">
+                    <tr>
+                        <td>Ячейка 1.1</td>
+                        <td>Ячейка 1.2</td>
+                        <td>Ячейка 1.3</td>
+                    </tr>
+
+                </table>
+            </td>
+            <td>
+                <table border="2">
+                    <tr>
+                        <td>Ячейка 1.1</td>
+                        <td>Ячейка 1.2</td>
+                        <td>Ячейка 1.3</td>
+                    </tr>
+
+                </table>
+            </td>
+            <td>
+                <table border="2">
+                    <tr>
+                        <td>Ячейка 1.1</td>
+                        <td>Ячейка 1.2</td>
+                        <td>Ячейка 1.3</td>
+                    </tr>
+
+                </table>
+            </td>
+            <td>
+                <table border="2">
+                    <tr>
+                        <td>Ячейка 1.1</td>
+                        <td>Ячейка 1.2</td>
+                        <td>Ячейка 1.3</td>
+                    </tr>
+
+                </table>
+            </td>
+
             </tbody>
-
         </table>
+
+
     </div>
 
 

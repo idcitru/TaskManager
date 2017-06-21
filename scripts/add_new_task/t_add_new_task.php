@@ -106,12 +106,6 @@
                 valid = false;
             }
 
-            if ( document.contact_form.description_task.value == "" )
-            {
-                alert ( "Пожалуйста заполните поле 'Описание задачи'." );
-                valid = false;
-            }
-
             if ( document.contact_form.name_task.value == "" )
             {
                 alert ( "Пожалуйста заполните поле 'Название задачи'." );

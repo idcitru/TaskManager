@@ -9,12 +9,12 @@
 
 
 $task = show_a_task($_GET["id_task"]);
-$performers = get_all_performers();
+//$performers = get_all_performers();
 $priorities = get_all_priorities();
 $projects = get_report_all_projects();
 
 
-if (isset($_GET["date_of_completion"]) && isset($_GET["performer_id"])) {
+if (isset($_GET["date_of_deadline"]) && isset($_GET["working_hours"])) {
 
     edit_a_task($_GET["id_task"]);
     header("Location: /public");
